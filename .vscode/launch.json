@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "api: npm test",
+            "cwd": "${workspaceFolder}/packages/card-game-api/",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                // "test"
+                "test:debug"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "protocol": "inspector",
+            // "stopOnEntry": false,
+            // "smartStep": true,
+            "outputCapture": "std",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "domain: npm test",
+            "cwd": "${workspaceFolder}/packages/card-game-domain/",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "protocol": "inspector",
+            // "stopOnEntry": false,
+            "outputCapture": "std",
+            "console": "integratedTerminal"
+        },
+    ]
+}

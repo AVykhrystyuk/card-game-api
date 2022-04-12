@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Alexey Vykhrystyuk <AVykhrystyuk@gmail.com>"
+}
