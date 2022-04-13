@@ -30,7 +30,8 @@
             "request": "launch",
             "runtimeArgs": [
                 "run-script",
-                "test"
+                // "test",
+                "test:debug"
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
