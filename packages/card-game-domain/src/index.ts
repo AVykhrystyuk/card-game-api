@@ -1,1 +1,1 @@
-export * from "./card-decks-service";
+export * from './card-decks-service';

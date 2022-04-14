@@ -1,9 +1,9 @@
-import { CardDeckType, CardDeck, Card, CardDeckWithCards } from "./models";
+import { CardDeckType, CardDeck, Card, CardDeckWithCards } from './models';
 
 export class CardDecksService {
   constructor(
     // private readonly cardsGenerator: CardsGenerator,
-    private readonly decksStore: CardDecksStore // private readonly cardsStore: CardsStore,
+    private readonly decksStore: CardDecksStore, // private readonly cardsStore: CardsStore,
   ) {}
 
   async createDeck(type: CardDeckType, shuffled: boolean): Promise<CardDeck> {
@@ -17,7 +17,7 @@ export class CardDecksService {
     // const cardCodes = this.cardsGenerator.generateCardCodes(type, shuffled);
     // await this.cardsStore.assignCardCodes(deckId, cardCodes);
     return {
-      deckId: "TODO: id",
+      deckId: 'TODO: id',
       type,
       shuffled: shuffled,
       remaining:
@@ -68,7 +68,9 @@ export abstract class CardDecksStore {
 }
 
 export class InMemoryCardDecksStore extends CardDecksStore {
-  async addDeck(deck: CardDeckDAL): Promise<void> {}
+  async addDeck(deck: CardDeckDAL): Promise<void> {
+    return null;
+  }
   async getDeck(filter: { deckId: string }): Promise<CardDeckDAL> {
     return null;
   }

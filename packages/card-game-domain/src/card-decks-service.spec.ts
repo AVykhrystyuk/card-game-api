@@ -1,14 +1,14 @@
-import { CardDeckType, CardDeck } from "./models";
-import { CardDecksService } from "./card-decks-service";
+import { CardDeckType, CardDeck } from './models';
+import { CardDecksService } from './card-decks-service';
 
-describe("CardDecksService", () => {
+describe('CardDecksService', () => {
   let service: CardDecksService;
 
   beforeEach(async () => {
     service = new CardDecksService(null);
   });
 
-  describe("v1", () => {
+  describe('v1', () => {
     const testCases: Array<{
       type: CardDeckType;
       shuffled: boolean;
