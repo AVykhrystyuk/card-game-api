@@ -42,6 +42,25 @@
             "outputCapture": "std",
             "console": "integratedTerminal"
         },
+        {
+            "name": "api: npm start",
+            "cwd": "${workspaceFolder}/packages/card-game-api/",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "start:debug"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "protocol": "inspector",
+            // "stopOnEntry": false,
+            // "smartStep": true,
+            "outputCapture": "std",
+            "console": "integratedTerminal"
+        },
         // {
         //     "name": "api: npm test",
         //     "cwd": "${workspaceFolder}/packages/card-game-api/",
