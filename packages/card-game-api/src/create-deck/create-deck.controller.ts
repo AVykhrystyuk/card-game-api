@@ -1,14 +1,20 @@
 import { Body, Controller, Post, Version } from '@nestjs/common';
+import { IsEnum, IsBoolean, IsOptional, IsDefined } from 'class-validator';
 import { CardDecksService } from '@card-game/domain';
 
-export class CreateDeckRequestDto {
-  type: DeckTypeDto;
-  shuffled?: boolean;
-}
-
-export const enum DeckTypeDto {
+export enum DeckTypeDto {
   Full = 'FULL',
   Short = 'SHORT',
+}
+
+export class CreateDeckRequestDto {
+  @IsDefined()
+  @IsEnum(DeckTypeDto)
+  type: DeckTypeDto;
+
+  @IsBoolean()
+  @IsOptional()
+  shuffled?: boolean;
 }
 
 export type CreateDeckResponseDto = {
@@ -24,7 +30,6 @@ export class CreateDeckController {
 
   @Version('1')
   @Post('decks')
-  // TODO: add validation?
   createDeck(
     @Body() createDeckDto: CreateDeckRequestDto,
   ): CreateDeckResponseDto {

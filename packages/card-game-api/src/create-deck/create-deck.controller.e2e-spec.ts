@@ -23,12 +23,23 @@ describe('CreateDeckController (e2e)', () => {
     const createDeck = (data: object) =>
       request(app.getHttpServer()).post(endpoint).send(data);
 
-    xit(`Deck with incorrect data cannot be created`, async () => {
-      await createDeck({ x: 1, y: 2 }).expect(400);
+    it(`Deck with incorrect data cannot be created`, async () => {
+      await createDeck({ x: 1, y: 2 }).expect({
+        statusCode: 400,
+        message: [
+          'type should not be null or undefined',
+          'type must be a valid enum value',
+        ],
+        error: 'Bad Request',
+      });
     });
 
-    xit(`Deck with 'Invalid' type cannot be created`, async () => {
-      await createDeck({ type: 'Invalid' }).expect(400);
+    it(`Deck with 'Invalid' type cannot be created`, async () => {
+      await createDeck({ type: 'Invalid' }).expect({
+        statusCode: 400,
+        message: ['type must be a valid enum value'],
+        error: 'Bad Request',
+      });
     });
 
     const successfulTestCases: Array<{

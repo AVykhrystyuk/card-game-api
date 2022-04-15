@@ -13,11 +13,12 @@
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
-                "<node_internals>/**"
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
             ],
             "type": "node",
             "protocol": "inspector",
-            // "stopOnEntry": false,
+            "stopOnEntry": false,
             // "smartStep": true,
             "outputCapture": "std",
             "console": "integratedTerminal"
@@ -31,29 +32,12 @@
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
-                "<node_internals>/**"
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
             ],
             "type": "node",
             "protocol": "inspector",
-            // "stopOnEntry": false,
-            // "smartStep": true,
-            "outputCapture": "std",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "npm test",
-            "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "test"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node",
-            "protocol": "inspector",
-            // "stopOnEntry": false,
+            "stopOnEntry": false,
             // "smartStep": true,
             "outputCapture": "std",
             "console": "integratedTerminal"
