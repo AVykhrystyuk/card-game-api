@@ -1,46 +1,65 @@
+import { validate } from 'uuid';
+
 import { CardDeckType, CardDeck } from './models';
 import { CardDecksService } from './card-decks-service';
+import { CardsGenerator } from './cards-generator';
+import { CardDecksStore } from './storages';
+
+const cast = <T>(obj: Partial<T>) => obj as T;
 
 describe('CardDecksService', () => {
   let service: CardDecksService;
+  let cardsGeneratorMock: CardsGenerator;
+  let cardDecksStoreMock: CardDecksStore;
 
-  beforeEach(async () => {
-    service = new CardDecksService(null);
+  beforeEach(() => {
+    cardsGeneratorMock = cast<CardsGenerator>({});
+
+    cardDecksStoreMock = cast<CardDecksStore>({
+      addDeck: async (deck) => deck,
+    });
+
+    service = new CardDecksService(cardsGeneratorMock, cardDecksStoreMock);
   });
 
-  describe('v1', () => {
+  describe('createDeck', () => {
     const testCases: Array<{
       type: CardDeckType;
-      shuffled: boolean;
       expectedRemaining: number;
     }> = [
       {
         type: CardDeckType.Full,
-        shuffled: true,
-        expectedRemaining: 52,
+        expectedRemaining: 2,
       },
       {
         type: CardDeckType.Short,
-        shuffled: false,
-        expectedRemaining: 36,
+        expectedRemaining: 1,
       },
     ];
 
-    for (const { type, shuffled, expectedRemaining } of testCases) {
+    for (const { type, expectedRemaining } of testCases) {
       it(`Deck for ${JSON.stringify({
         type,
-        shuffled,
       })} has successfully created`, async () => {
-        const cardDeck = await service.createDeck(type, shuffled);
+        // Arrange
+        cardsGeneratorMock.generateCardCodes = jest
+          .fn()
+          .mockReturnValueOnce(Array(expectedRemaining));
 
-        expect(cardDeck.deckId).toBeDefined();
+        jest.spyOn(cardDecksStoreMock, 'addDeck');
 
-        const expectedResponse: Partial<CardDeck> = {
+        // Act
+        const cardDeck = await service.createDeck(type, false);
+
+        // Assert
+        expect(cardDecksStoreMock.addDeck).toHaveBeenCalled();
+        expect(validate(cardDeck.deckId)).toBeTruthy();
+        expect(cardDeck).toMatchObject<Partial<CardDeck>>({
           type,
-          shuffled,
           remaining: expectedRemaining,
-        };
-        expect(cardDeck).toMatchObject(expectedResponse);
+        });
+
+        jest.restoreAllMocks();
       });
     }
   });

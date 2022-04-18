@@ -1,11 +1,18 @@
 import { Body, Controller, Post, Version } from '@nestjs/common';
 import { IsEnum, IsBoolean, IsOptional, IsDefined } from 'class-validator';
-import { CardDecksService } from '@card-game/domain';
+
+import { CardDecksService, CardDeckType } from '@card-game/domain';
 
 export enum DeckTypeDto {
   Full = 'FULL',
   Short = 'SHORT',
 }
+
+const toCardDeckType = (type: DeckTypeDto) =>
+  type === DeckTypeDto.Full ? CardDeckType.Full : CardDeckType.Short;
+
+const toCardDeckTypeDto = (type: CardDeckType) =>
+  type === CardDeckType.Full ? DeckTypeDto.Full : DeckTypeDto.Short;
 
 export class CreateDeckRequestDto {
   @IsDefined()
@@ -30,21 +37,19 @@ export class CreateDeckController {
 
   @Version('1')
   @Post('decks')
-  createDeck(
+  async createDeck(
     @Body() createDeckDto: CreateDeckRequestDto,
-  ): CreateDeckResponseDto {
-    this.cardDecksService.drawCards('1', 1);
+  ): Promise<CreateDeckResponseDto> {
+    const deckCreated = await this.cardDecksService.createDeck(
+      toCardDeckType(createDeckDto.type),
+      createDeckDto.shuffled ?? false,
+    );
 
     return {
-      deckId: 'TODO: id',
-      type: createDeckDto.type,
-      shuffled: createDeckDto.shuffled ?? false,
-      remaining:
-        createDeckDto.type === DeckTypeDto.Full
-          ? 52
-          : createDeckDto.type === DeckTypeDto.Short
-          ? 36
-          : 0,
+      deckId: deckCreated.deckId,
+      type: toCardDeckTypeDto(deckCreated.type),
+      shuffled: deckCreated.shuffled,
+      remaining: deckCreated.remaining,
     };
   }
 }
