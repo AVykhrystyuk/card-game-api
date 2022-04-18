@@ -1,0 +1,21 @@
+{
+  "name": "@card-game/domain",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "author": "Alexey Vykhrystyuk <AVykhrystyuk@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.4"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}
