@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "clean": "lerna clean --yes",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap && lerna run build",
+    "start": "lerna run start",
+    "start:prod": "lerna run start:prod",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
