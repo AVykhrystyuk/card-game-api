@@ -1,4 +1,4 @@
-# card-game-api
+# test-task: Card Game Api
 
 ## Installation
 
